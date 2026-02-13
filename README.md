@@ -2,95 +2,186 @@
 
 一张表看懂比特币的四年周期规律。
 
-以月度涨跌幅矩阵的形式，展示 2011 年至今每个月的价格变化，并标注减半年、大牛年、回调年、小牛年的周期轮替。数据实时更新，打开即用。
-
 ## 在线访问
 
-**https://wolfyxbt.github.io/bitcoin-four-year-cycle-map/**
+**静态页面**：https://yuanxuejpjp.github.io/bitcoin-four-year-cycle-map/
 
-纯静态页面，无需后端，也可部署到 Vercel、Netlify 等平台。
+[![Bitcoin Four-Year Cycle Map]](https://yuanxuejpjp.github.io/bitcoin-four-year-cycle-map/)
+
+---
 
 ## 功能特性
 
-- 年份 × 月份矩阵，涨跌幅按 9 级渐变色（绿涨红跌）直观呈现
-- 实时比特币价格 + 本月涨跌幅（滚动数字效果）
-- 标题右侧显示实时价格与本月涨跌幅，上方标签、下方数值的上下布局
-- 减半月份黄色高亮（含下次减半动态预测，基于 Blockchair API）
-- 每四年一组行间距，清晰划分周期
-- 鼠标悬停单元格浮动放大，联动高亮年份和月份表头
-- 悬停 Total / Cycle 单元格时整行高亮，悬停中位数 / 平均数时整列高亮
-- 年份背景从白色到蓝色渐变，直观呈现时间轴
-- 支持中英文切换（右下角地球图标按钮）
-- 右下角 X (Twitter) 和 GitHub 跳转按钮
-- 自适应缩放，桌面端和移动端均可完整展示（等比缩小，布局一致）
+### 📊 数据展示
+- **2011 年至今** 比特币历史价格数据
+- **月度涨跌幅矩阵** - 绿涨红跌，颜色深浅直观
+- **实时价格更新** - WebSocket 实时推送
+- **多维度统计** - 年度、月份平均/中位数
 
-## 本地运行
+### 🎯 极值标记
+- **最高点标记** - 大牛年（bigBull）红色 ▲ 标记年度最高点
+- **最低点标记** - 回调年（correction）绿色 ▼ 标记年度最低点
+- **智能提示** - 鼠标悬停显示具体日期、价格、距离上次减半/极值天数
 
-```bash
-# 克隆仓库
-git clone https://github.com/wolfyxbt/bitcoin-four-year-cycle-map.git
-cd bitcoin-four-year-cycle-map
+### 🔮 预测系统
+- **时间范围预测** - 基于历史规律（距上次最高点 363-380 天，距下次减半 513-571 天）
+- **价格预测** - 斐波那契回调计算（0.236-0.382）
+- **一键复制** - 点击按钮复制预测信息到微信分享
+- **每日更新** - GitHub Actions 自动更新月度数据
 
-# 启动本地服务器（任选一种）
-python3 -m http.server 8080
-# 或
-npx serve .
-```
+### 🌐 国际化
+- 中英文双语支持（右下角地球图标切换）
 
-浏览器打开 `http://localhost:8080`
+### 📱 响应式设计
+- 自适应缩放，桌面端和移动端完美展示
 
-## 技术栈
+---
 
-- **纯前端**：HTML / CSS / JavaScript（ES Modules），无框架依赖
-- **实时数据**：Binance WebSocket（逐笔交易 + 月线 K 线）
-- **历史数据**：`data/monthly-seed.json` 静态文件（数据源：blockchain.info）
-- **减半预测**：Blockchair 公开 API
-- **自动更新**：GitHub Actions 每月自动固化上月数据（含自动重试机制）
+## 在线访问
 
-## 数据说明
+### 部署方式
+- **GitHub Pages**（推荐）：https://yuanxuejpjp.github.io/bitcoin-four-year-cycle-map/
+- **Vercel**（备选）：一键部署到 Vercel
+- **本地运行**：`python -m http.server 8080`
 
-| 项目 | 说明 |
-|------|------|
-| 时区 | UTC |
-| 计价 | USDT |
-| 月涨跌幅 | (收盘价 - 开盘价) / 开盘价 × 100% |
-| 历史数据 | 2010-08 起，来自 `monthly-seed.json`（blockchain.info） |
-| 实时数据 | 当前月通过 Binance WebSocket 动态更新 |
+### 数据来源
+- **实时价格**：Binance WebSocket API
+- **历史数据**：blockchain.info
+- **减半倒计时**：Blockchair API
 
-## 每月自动更新
+---
 
-通过 GitHub Actions，每月 1 日 UTC 00:10 自动从 blockchain.info 获取上月收盘数据，写入 `monthly-seed.json` 并提交。
+## 功能特性
 
-如果获取失败（API 暂时不可用或数据尚未就绪），脚本会自动重试，每次间隔 1 小时，最多重试 5 次。
+### 📊 数据展示
+- **2011 年至今** 比特币历史价格数据
+- **月度涨跌幅矩阵** - 绿涨红跌，颜色深浅直观
+- **实时价格更新** - WebSocket 实时推送
+- **多维度统计** - 年度、月份平均/中位数
 
-- 工作流：`.github/workflows/monthly-update.yml`
-- 脚本：`scripts/update-monthly-seed.mjs`
+### 🎯 极值标记
+- **最高点标记** - 大牛年（bigBull）红色 ▲ 标记年度最高点
+- **最低点标记** - 回调年（correction）绿色 ▼ 标记年度最低点
+- **智能提示** - 鼠标悬停显示具体日期、价格、距离上次减半/极值天数
 
-也可手动触发：进入仓库 Actions 页面 → Monthly Seed Update → Run workflow。
+### 🔮 预测系统
+- **时间范围预测** - 基于历史规律（距上次最高点 363-380 天，距下次减半 513-571 天）
+- **价格预测** - 斐波那契回调计算（0.236-0.382）
+- **一键复制** - 点击按钮复制预测信息到微信分享
+- **每日更新** - GitHub Actions 自动更新月度数据
+
+### 🌐 国际化
+- 中英文双语支持（右下角地球图标切换）
+
+### 📱 响应式设计
+- 自适应缩放，桌面端和移动端完美展示
+
+---
 
 ## 项目结构
 
 ```
+bitcoin-four-year-cycle-map-main/
 ├── index.html                 # 页面入口
 ├── app.js                     # 主逻辑（数据加载、实时更新、交互）
 ├── styles.css                 # 样式（含移动端自适应）
 ├── src/
 │   ├── config.js              # 全局配置
-│   ├── dataService.js         # 数据获取（REST + WebSocket）
-│   ├── metrics.js             # 数据计算（矩阵、统计）
-│   ├── render.js              # 渲染（表格、滚动数字、按钮）
-│   └── i18n.js                # 中英文翻译
+│   ├── dataService.js        # 数据获取（REST + WebSocket）
+│   ├── metrics.js             # 数据计算（极值、统计）
+│   ├── render.js              # 渲染（表格、动画、极值标记）
+│   └── i18n.js              # 中英文翻译
 ├── data/
-│   └── monthly-seed.json      # 历史月度数据
-├── favicon/                   # 网站图标（ico / png / webmanifest）
+│   └── monthly-seed.json      # 历史月度数据（blockchain.info）
 ├── fonts/
 │   └── reeji-flash.ttf        # 自定义字体
+├── favicon/                   # 网站图标
 ├── scripts/
-│   └── update-monthly-seed.mjs # 月度数据更新脚本（含重试机制）
+│   └── update-monthly-seed.mjs # 月度数据更新脚本
 └── .github/workflows/
-    └── monthly-update.yml     # GitHub Actions 工作流
+    └── monthly-update.yml        # GitHub Actions 自动更新
 ```
+
+---
+
+## 本地运行
+
+### 环境要求
+- Python 3.8+ 或 Node.js 16+
+- 现代浏览器（Chrome/Edge/Firefox 最新版）
+
+### 启动步骤
+```bash
+# 克隆仓库
+git clone https://github.com/yuanxuejpjp/bitcoin-four-year-cycle-map.git
+cd bitcoin-four-year-cycle-map
+
+# 方式 1：Python（推荐）
+python3 -m http.server 8080
+
+# 方式 2：Node.js
+npx serve
+
+# 方式 3：PHP 内置服务器
+php -S localhost:8080
+```
+
+浏览器访问：http://localhost:8080
+
+---
+
+## API 使用
+
+### Binance REST API
+- **月线数据**：`/api/v3/klines?symbol=BTCUSDT&interval=1M`
+- **日数据**：`/api/v3/klines?symbol=BTCUSDT&interval=1d`
+- **WebSocket**：`wss://stream.binance.me:9443/stream?streams=btcusdt@kline_1M/btcusdt@trade`
+
+### blockchain.info
+- **历史数据**：`https://blockchain.info/q/dateblockchain.info/historical`
+
+### Blockchair
+- **减半倒计时**：`https://api.blockchair.com/tools/halvening`
+
+---
+
+## 版本历史
+
+### v2.0 (2026-02-13)
+- ✅ 添加最低点预测面板
+  - 时间范围预测（距最高点/减半天数）
+  - 价格预测（斐波那契 0.236-0.382）
+  - 一键复制到微信功能
+- ✅ 优化页面布局
+  - 标题字体增大到 58px
+  - 价格信息独立一行显示
+- ✅ 改进极值计算
+  - 支持日级别数据精确极值
+  - 月度数据支持 high/low 字段
+- ✅ 添加调试日志
+  - 帮助排查问题
+
+### v1.0
+- 初始版本
+  - 基础表格展示
+  - 实时价格更新
+  - 中英文切换
+  - 四年周期划分
+
+---
+
+## 贡献
+
+欢迎提交 Issue 和 Pull Request！
+
+---
 
 ## License
 
 MIT
+
+---
+
+## 开发者
+
+[**wolfyxbt**](https://github.com/wolfyxbt)
