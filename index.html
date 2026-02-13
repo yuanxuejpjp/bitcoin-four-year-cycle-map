@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title id="page-title">比特币四年周期轮动图</title>
+    <link rel="icon" type="image/x-icon" href="./favicon/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="./favicon/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="./favicon/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="./favicon/apple-touch-icon.png" />
+    <link rel="manifest" href="./favicon/site.webmanifest" />
+    <link rel="stylesheet" href="./styles.css?v=20260213y" />
+  </head>
+  <body>
+    <main class="page">
+    <main class="page">
+      <header class="topbar">
+        <h1 id="main-title">比特币 <span class="muted">四年周期轮动图</span></h1>
+      </header>
+
+      <div class="info-bar">
+        <div class="price-box">
+          <div class="price-group">
+            <span class="group-label" id="price-label">比特币现价</span>
+            <span id="spot-price" class="price-value">00,000</span>
+          </div>
+          <div class="price-group">
+            <span class="group-label" id="month-label">本月</span>
+            <span id="month-change" class="month-change">0.00%</span>
+          </div>
+        </div>
+        <div id="prediction-panel" class="prediction-panel" style="display: none;">
+          <div class="prediction-header">
+            <span class="prediction-title">🎯 最低点预测</span>
+            <button id="copy-btn" class="copy-btn" title="复制到微信">📋 复制</button>
+          </div>
+          <div class="prediction-content">
+            <div class="prediction-range">
+              <span class="label">预计时间：</span>
+              <span class="value" id="pred-range-value">计算中...</span>
+            </div>
+            <div class="prediction-days">
+              <span class="label">距离今天：</span>
+              <span class="value" id="pred-days-value">-</span>
+            </div>
+            <div class="prediction-price">
+              <span class="label">预测价格：</span>
+              <span class="value" id="pred-price-value">计算中...</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <section class="panel">
+        <div class="table-wrap">
+          <table id="cycle-table" class="cycle-table"></table>
+        </div>
+      </section>
+    </main>
+
+    <script type="module" src="./app.js?v=20260213y"></script>
+  </body>
+</html>
